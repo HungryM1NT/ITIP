@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class Second {
+public class Second_practice {
     public static void main(String[] args) {
         System.out.println(duplicateChars("Donald"));
         System.out.println(duplicateChars("orange"));

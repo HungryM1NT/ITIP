@@ -1,4 +1,4 @@
-public class First {
+public class First_practice {
     public static void main(String[] args) {
         System.out.println(convert(5));
         System.out.println(convert(3));
