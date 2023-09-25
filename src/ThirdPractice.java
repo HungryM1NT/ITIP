@@ -1,9 +1,6 @@
-import java.io.Console;
-import java.lang.constant.Constable;
 import java.util.Arrays;
-import java.util.Collection;
 
-public class Third_practice {
+public class ThirdPractice {
 
     public static void main(String[] args) {
         System.out.println(replaceVovels("apple"));
