@@ -114,7 +114,12 @@ public class FirthPractice {
                 if (nowSubString.length() > maxSubString.length()) {
                     maxSubString = nowSubString;
                 }
-                nowSubString = new StringBuilder("" + now);
+                if ((bef == now + 1) || (bef == now - 1)) {
+                    nowSubString = new StringBuilder("" + bef + now);
+                }
+                else {
+                    nowSubString = new StringBuilder("" + now);
+                }
                 upper = !upper;
             }
         }
