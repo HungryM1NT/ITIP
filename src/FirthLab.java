@@ -26,7 +26,7 @@ public class FirthLab {
             System.out.println(e.getMessage());
         }
 
-        newfile = new File("textInput11.txt");
+        newfile = new File("textInpujbkhgkt11.txt");
 
         try {
             FileReader reader = new FileReader(newfile);
