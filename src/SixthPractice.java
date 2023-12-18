@@ -1,7 +1,13 @@
 import java.util.*;
 
+class CustomMathException extends Exception {
+    public CustomMathException(String text) {
+        System.out.println(text);
+    }
+}
+
 public class SixthPractice {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CustomMathException {
         System.out.println(hiddenAnagram("My world evolves in a beautiful space called Tesh.", "sworn love lived"));
         System.out.println(hiddenAnagram("An old west action hero actor", "Clint Eastwood"));
         System.out.println(hiddenAnagram("Mr. Mojo Rising could be a song title", "Jim Morrison"));
@@ -37,15 +43,15 @@ public class SixthPractice {
         System.out.println();
         System.out.println();
 
-//        System.out.println(Arrays.toString(isExact(6)));
-//        System.out.println(Arrays.toString(isExact(24)));
-//        System.out.println(Arrays.toString(isExact(125)));
-//        System.out.println(Arrays.toString(isExact(720)));
-//        System.out.println(Arrays.toString(isExact(1024)));
-//        System.out.println(Arrays.toString(isExact(40320)));
-//        System.out.println();
-//        System.out.println();
-//        System.out.println();
+        System.out.println(Arrays.toString(isExact(6)));
+        System.out.println(Arrays.toString(isExact(24)));
+        System.out.println(Arrays.toString(isExact(125)));
+        System.out.println(Arrays.toString(isExact(720)));
+        System.out.println(Arrays.toString(isExact(1024)));
+        System.out.println(Arrays.toString(isExact(40320)));
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         System.out.println(fractions("0.(6)"));
         System.out.println(fractions("1.(1)"));
@@ -156,32 +162,32 @@ public class SixthPractice {
         return new int[0];
     }
 
-//    public static int[] isExact(int number) {
-//        int dynamicNumber = number;
-//        if (number == 1) return new int[]{1, 1};
-//        if (number == 2) return new int[]{2, 2};
-//        for (int i = 2; i <= number; i++) {
-//            if (dynamicNumber % i != 0) {
-//                if (i == 2) {
-//                    return new int[0];
-//                }
-//                else {
-//                    int[] temp = isExact(number / (i - 1));
-//                    if (temp.length == 0) {
-//                        return new int[0];
-//                    }
-//                    else {
-//                        if (i - 1 == temp[1]) {
-//                            return new int[0];
-//                        }
-//                        return new int[]{number, (i-1)};
-//                    }
-//                }
-//            }
-//            dynamicNumber /= i;
-//        }
-//        return new int[0];
-//    }
+    public static int[] isExact(int number) {
+        int dynamicNumber = number;
+        if (number == 1) return new int[]{1, 1};
+        if (number == 2) return new int[]{2, 2};
+        for (int i = 2; i <= number; i++) {
+            if (dynamicNumber % i != 0) {
+                if (i == 2) {
+                    return new int[0];
+                }
+                else {
+                    int[] temp = isExact(number / (i - 1));
+                    if (temp.length == 0) {
+                        return new int[0];
+                    }
+                    else {
+                        if (i - 1 == temp[1]) {
+                            return new int[0];
+                        }
+                        return new int[]{number, (i-1)};
+                    }
+                }
+            }
+            dynamicNumber /= i;
+        }
+        return new int[0];
+    }
 
     public static String fractions(String number) {
         String[] numArray = number.split("[.()]");
@@ -237,7 +243,7 @@ public class SixthPractice {
         return answer.toString();
     }
 
-    public static int generateNonconsecutive(String str) {
+    public static int generateNonconsecutive(String str) throws CustomMathException {
         String operations = "+-/*";
         str = str.replaceAll("\\(", "( ");
         str = str.replaceAll("\\)", " )");
@@ -254,12 +260,10 @@ public class SixthPractice {
             now = strArray[i];
             if (operations.contains(now)) {
                 if ((i == 0 || i == strArray.length - 1)) {
-                    System.out.println("Неверный формат ввода (начинается или заканичивается операцией)");
-                    return 0;
+                    throw new CustomMathException("Неверный формат ввода (начинается или заканичивается операцией))");
                 }
                 if (!lastNum) {
-                    System.out.println("Неверный формат ввода (две операции подряд или ошибка у скобок)");
-                    return 0;
+                    throw new CustomMathException("Неверный формат ввода (две операции подряд или ошибка у скобок)");
                 }
                 lastNum = false;
             }
@@ -270,25 +274,21 @@ public class SixthPractice {
             else if (now.equals(")")) {
                 openBrackets -= 1;
                 if (openBrackets < 0) {
-                    System.out.println("Неверный формат ввода (неправильный порядок скобок)");
-                    return 0;
+                    throw new CustomMathException("Неверный формат ввода (неправильный порядок скобок)");
                 }
             }
             else if (now.matches("-?\\d+")) {
                 if (lastNum) {
-                    System.out.println("Неверный формат ввода (два числа подряд или ошибка у скобок)");
-                    return 0;
+                    throw new CustomMathException("Неверный формат ввода (два числа подряд или ошибка у скобок)");
                 }
                 lastNum = true;
             }
             else {
-                System.out.println("Неверный формат ввода (встречается неизвестная подстрока)");
-                return 0;
+                throw new CustomMathException("Неверный формат ввода (встречается неизвестная подстрока)");
             }
         }
         if (openBrackets != 0) {
-            System.out.println("Неверный формат ввода (неправильный порядок скобок)");
-            return 0;
+            throw new CustomMathException("Неверный формат ввода (неправильный порядок скобок)");
         }
 
         // Простой случай операции
@@ -308,8 +308,7 @@ public class SixthPractice {
                         return Integer.parseInt(strArray[0]) / Integer.parseInt(strArray[2]);
                     }
                     catch (ArithmeticException e) {
-                        System.out.println("Ошибка: В строке происходит деление на ноль");
-                        return 0;
+                        throw new CustomMathException("Ошибка: В строке происходит деление на ноль");
                     }
                 }
             }
@@ -412,15 +411,12 @@ public class SixthPractice {
 
     public static String findLCS(String str1, String str2) {
         int[][] matrix = new int[str1.length() + 1][str2.length() + 1];
-        for (int j = 0; j <= str2.length(); j++) {
-            matrix[0][j] = 0;
-        }
         for (int i = 0; i <= str1.length(); i++) {
-            matrix[i][0] = 0;
-        }
-        for (int i = 1; i <= str1.length(); i++) {
-            for (int j = 1; j <= str2.length(); j++) {
-                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+            for (int j = 0; j <= str2.length(); j++) {
+                if (i == 0 || j == 0) {
+                    matrix[i][j] = 0;
+                }
+                else if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                     matrix[i][j] = matrix[i - 1][j - 1] + 1;
                 }
                 else {
@@ -446,13 +442,6 @@ public class SixthPractice {
         }
         Collections.reverse(chars);
         StringBuilder answer = new StringBuilder();
-        String test = "sdd";
-        String test1 = "sd";
-        for (char symbol: test.toCharArray()) {
-            if (test1.contains(Character.toString(symbol))) {
-                System.out.println("sdasda");
-            }
-        }
         for (char c: chars) {
             answer.append(c);
         }
